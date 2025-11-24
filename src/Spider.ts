@@ -1,4 +1,4 @@
-import CanvasRenderer from "./CanvasRenderer";
+import CanvasRenderer from './CanvasRenderer.js';
 
 export default class Spider {
   private image: HTMLImageElement;
@@ -16,8 +16,7 @@ export default class Spider {
 
     // Get random spider
     const random: number = Math.random() * 100;
-    console.log(random);
-
+    
     if (random > 90) {
       this.image = CanvasRenderer.loadNewImage('./assets/spider01.png');
       this.score = -5;
@@ -26,7 +25,7 @@ export default class Spider {
       this.score = -3;
     } else if (random > 40) {
       this.image = CanvasRenderer.loadNewImage('./assets/spider03.png');
-      this.score = -2
+      this.score = -2;
     } else {
       this.image = CanvasRenderer.loadNewImage('./assets/spider04.png');
       this.score = -1;
@@ -48,14 +47,14 @@ export default class Spider {
    * render
    */
   public render(canvas: HTMLCanvasElement): void{
-    CanvasRenderer.drawImage(canvas, this.image, this.posX, this.posY)
+    CanvasRenderer.drawImage(canvas, this.image, this.posX, this.posY);
   }
 
   /**
    * getPosX
    */
   public getPosX(): number {
-    return this.posX
+    return this.posX;
   }
 
   /**

@@ -1,5 +1,6 @@
-import Fruit from "./Fruit";
-import Spider from "./Spider";
+import CanvasRenderer from './CanvasRenderer.js';
+import Fruit from './Fruit.js';
+import Spider from './Spider.js';
 
 export default class Player {
   private image: HTMLImageElement;
@@ -17,21 +18,30 @@ export default class Player {
   private movingRight: boolean;
 
   public constructor(maxX :number, maxY: number) {
+    this.image = CanvasRenderer.loadNewImage("./assets/basket.png");
+    this.maxX = maxX;
 
+    this.posX = maxX /2;
+    this.posY = maxY - 100;
+
+    this.speed = .5;
+
+    this.movingLeft = false;
+    this.movingRight = false;
   }
 
   /**
-   * MoveLeft
+   * function to move left
    */
-  public moveLeft() {
-
+  public moveLeft() : void{
+    this.movingLeft = true;
   }
 
   /**
-   * MoveRight
+   * function to move right
    */
-  public moveRight() {
-
+  public moveRight() : void{
+    this.movingRight = false;
   }
 
   /**
@@ -51,42 +61,59 @@ export default class Player {
   /**
    * update
    */
-  public update(delta: number) {
+  public update(delta: number) : void {
+    if (this.movingLeft) {
+      this.posX -= delta * this.speed;
+    }
 
+    if (this.movingRight) {
+      this.posX += delta * this.speed;
+    }
+
+    if (this.posX + this.getWidth() > this.maxX) {
+      this.posX = this.maxX;
+    }
+
+    if (this.posX < 0) {
+      this.posX = 0;
+    }
+
+    this.movingLeft = false;
+    this.movingRight = false;
   }
 
   /**
    * render
    */
-  public render(canvas: HTMLCanvasElement) {
-
+  public render(canvas: HTMLCanvasElement) : void {
+    CanvasRenderer.drawImage(canvas, this.image, this.posX, this.posY);
   }
 
   /**
    * getPosX
    */
-  public getPosX() {
-
+  public getPosX() : number {
+    return this.posX;
   }
 
   /**
    * getPosY
    */
-  public getPosY() {
-
+  public getPosY() : number {
+    return this.posY;
   }
 
   /**
    * getWidth
    */
-  public getWidth() {
-
+  public getWidth() : number {
+    return this.image.width;
   }
 
   /**
    * getHeight
    */
-  public getHeight() {
-
+  public getHeight() : number {
+    return this.image.height;
   }
 }
