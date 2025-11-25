@@ -1,23 +1,18 @@
 import CanvasRenderer from './CanvasRenderer.js';
+import ScoreItem from './ScoreItem.js';
 
-export default class Fruit {
-  private image: HTMLImageElement;
-
-  private score: number;
-
-  private posX: number;
-
-  private posY: number;
-
+export default class Fruit extends ScoreItem {
   private speed: number;
 
   public constructor(maxX :number) {
+    super();
+
     this.posX = 0;
     this.posY = 0;
     this.score = 0;
     this.speed = .15;
 
-    // Get random spider
+    // Get random fruit
     const random: number = Math.random() * 100;
 
     if (random > 90) {
@@ -47,51 +42,5 @@ export default class Fruit {
    */
   public update(delta: number): void{
     this.posY += delta * this.speed;
-  }
-  
-  /**
-   * render
-   */
-  public render(canvas: HTMLCanvasElement) : void {
-    CanvasRenderer.drawImage(canvas, this.image, this.posX, this.posY);
-  }
-
-  /**
-   * gets the x pos
-   * @returns posX
-   */
-  public getPosX(): number {
-    return this.posX;
-  }
-
-  /**
-   * gets the y pos
-   * @returns posY
-   */
-  public getPosY(): number {
-    return this.posY;
-  }
-
-  /**
-   * gets the width
-   * @returns image width
-   */
-  public getWidth(): number {
-    return this.image.width;
-  }
-
-  /**
-   * gets the height
-   * @returns image height
-   */
-  public getHeight(): number {
-    return this.image.height;
-  }
-
-  /**
-   * getScore
-   */
-  public getScore() {
-    return this.score;
   }
 }

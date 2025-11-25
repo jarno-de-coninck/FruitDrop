@@ -108,6 +108,7 @@ export class FruitDrop extends Game {
     this.timeToNextItem -= delta;
     if (this.timeToNextItem < 0) {
       this.makeItem();
+      this.timeToNextItem = Math.random() * 300;
     }
 
     return true;
@@ -130,7 +131,7 @@ export class FruitDrop extends Game {
       fruit.render(this.canvas);
     });
 
-    CanvasRenderer.writeText(this.canvas, `Time: ${(this.timeLeft / 1000).toFixed(2)}`, this.canvas.width / 2, 50);
-    CanvasRenderer.writeText(this.canvas, `Score: ${this.score}`, this.canvas.width / 2, 100);
+    CanvasRenderer.writeText(this.canvas, `Time: ${(this.timeLeft / 1000).toFixed(2)}`, 10, 80, 'left', 'sans-serif', 35, 'white');
+    CanvasRenderer.writeText(this.canvas, `Score: ${this.score}`, 10, 40, 'left', 'sans-serif', 35, 'white');
   }
 }

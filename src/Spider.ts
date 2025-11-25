@@ -1,15 +1,10 @@
 import CanvasRenderer from './CanvasRenderer.js';
+import ScoreItem from './ScoreItem.js';
 
-export default class Spider {
-  private image: HTMLImageElement;
-
-  private score: number;
-
-  private posX: number;
-
-  private posY: number;
-
+export default class Spider extends ScoreItem {
   public constructor(maxX: number) {
+    super();
+
     this.posX = 0;
     this.posY = 0;
     this.score = 0;
@@ -41,47 +36,5 @@ export default class Spider {
    */
   public update(delta: number): void{
     this.posY += delta * .1;
-  }
-
-  /**
-   * render
-   */
-  public render(canvas: HTMLCanvasElement): void{
-    CanvasRenderer.drawImage(canvas, this.image, this.posX, this.posY);
-  }
-
-  /**
-   * getPosX
-   */
-  public getPosX(): number {
-    return this.posX;
-  }
-
-  /**
-   * getPosY
-   */
-  public getPosY(): number {
-    return this.posY;
-  }
-
-  /**
-   * getWidth
-   */
-  public getWidth(): number {
-    return this.image.width;
-  }
-
-  /**
-   * getHeight
-   */
-  public getHeight(): number {
-    return this.image.height;
-  }
-
-  /**
-   * getScore
-   */
-  public getScore() {
-    return this.score;
   }
 }
