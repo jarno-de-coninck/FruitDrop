@@ -41,21 +41,73 @@ export default class Player {
    * function to move right
    */
   public moveRight() : void{
-    this.movingRight = false;
+    this.movingRight = true;
   }
 
   /**
    * isCollidingFruit
    */
-  public isCollidingFruit(fruit: Fruit) {
+  public isCollidingFruit(fruit: Fruit) : boolean {
+    const playerLeftSide : number = this.posX;
+    const playerRightSide : number = this.posX + this.getWidth();
+    const playerTop : number = this.posY;
+    const playerBottom : number = this.posY + this.getHeight();
 
+    const fruitLeftSide : number = fruit.getPosX();
+    const fruitRightSide : number = fruit.getPosX() + fruit.getWidth();
+    const fruitTop : number = fruit.getPosY();
+    const fruitBottom : number = fruit.getPosY() + fruit.getHeight();
+
+    if (playerRightSide < fruitLeftSide) {
+      return false;
+    }
+
+    if (playerLeftSide > fruitRightSide) {
+      return false;
+    }
+
+    if (playerBottom < fruitTop) {
+      return false;
+    }
+
+    if (playerTop > fruitBottom) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
    * IsCollidingSpider
    */
-  public IsCollidingSpider(spider : Spider) {
+  public IsCollidingSpider(spider : Spider) : boolean {
+    const playerLeftSide : number = this.posX;
+    const playerRightSide : number = this.posX + this.getWidth();
+    const playerTop : number = this.posY;
+    const playerBottom : number = this.posY + this.getHeight();
 
+    const spiderLeftSide : number = spider.getPosX();
+    const spiderRightSide : number = spider.getPosX() + spider.getWidth();
+    const spiderTop : number = spider.getPosY();
+    const spiderBottom : number = spider.getPosY() + spider.getHeight();
+
+    if (playerRightSide < spiderLeftSide) {
+      return false;
+    }
+
+    if (playerLeftSide > spiderRightSide) {
+      return false;
+    }
+
+    if (playerBottom < spiderTop) {
+      return false;
+    }
+
+    if (playerTop > spiderBottom) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
@@ -71,7 +123,7 @@ export default class Player {
     }
 
     if (this.posX + this.getWidth() > this.maxX) {
-      this.posX = this.maxX;
+      this.posX = this.maxX - this.getWidth();
     }
 
     if (this.posX < 0) {

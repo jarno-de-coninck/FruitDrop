@@ -40,7 +40,7 @@ export default class Spider {
    * update
    */
   public update(delta: number): void{
-    this.posX += delta * .1;
+    this.posY += delta * .1;
   }
 
   /**

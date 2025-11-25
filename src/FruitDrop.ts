@@ -33,12 +33,10 @@ export class FruitDrop extends Game {
 
     this.player = new Player(this.canvas.width, this.canvas.height);
 
-
-    this.spiders = [];
-    this.timeToNextItem = Math.random() * 500;
-
     this.fruit = [];
-    this.timeToNextItem = Math.random() * 500;
+    this.spiders = [];
+    
+    this.timeToNextItem = Math.random() * 300;
   }
 
   private makeItem(): void {
@@ -53,11 +51,11 @@ export class FruitDrop extends Game {
    * Process all input. Called from the GameLoop.
    */
   public processInput(): void {
-    while(this.keyListener.isKeyDown('KEY_LEFT')) {
+    if (this.keyListener.isKeyDown(KeyListener.KEY_LEFT)) {
       this.player.moveLeft();
     }
 
-    while(this.keyListener.isKeyDown('KEY_RIGHT')) {
+    if (this.keyListener.isKeyDown(KeyListener.KEY_RIGHT)) {
       this.player.moveRight();
     }
   }
@@ -75,13 +73,35 @@ export class FruitDrop extends Game {
       return false;
     }
 
-    this.spiders.forEach((spider: Spider) => {
-      spider.update(delta);
-    });
-
-    this.fruit.forEach((fruit: Fruit) => {
+    for (let i: number = this.fruit.length - 1; i >= 0; i--) {
+      const fruit : Fruit = this.fruit[i];
+      
       fruit.update(delta);
-    });
+      
+      if (fruit.getPosY() > this.canvas.height + fruit.getHeight()) {
+        this.fruit.splice(i, 1);
+      }
+
+      if (this.player.isCollidingFruit(fruit)) {
+        this.score += fruit.getScore();
+        this.fruit.splice(i, 1);
+      }
+    }
+
+    for (let i: number = this.spiders.length - 1; i >= 0; i--) {
+      const spider : Spider = this.spiders[i];
+      
+      spider.update(delta);
+
+      if (spider.getPosY() > this.canvas.height + spider.getHeight()) {
+        this.spiders.splice(i, 1);
+      }
+      
+      if (this.player.IsCollidingSpider(spider)) {
+        this.score += spider.getScore();
+        this.spiders.splice(i, 1);
+      }
+    }
 
     this.player.update(delta);
 
@@ -97,6 +117,9 @@ export class FruitDrop extends Game {
    * Render all the elements in the screen.
    */
   public render(): void {
+    // Clear the canvas
+    CanvasRenderer.clearCanvas(this.canvas);
+
     this.player.render(this.canvas);
     
     this.spiders.forEach((spider: Spider) => {
@@ -107,7 +130,7 @@ export class FruitDrop extends Game {
       fruit.render(this.canvas);
     });
 
-    // Clear the canvas
-    CanvasRenderer.clearCanvas(this.canvas);
+    CanvasRenderer.writeText(this.canvas, `Time: ${(this.timeLeft / 1000).toFixed(2)}`, this.canvas.width / 2, 50);
+    CanvasRenderer.writeText(this.canvas, `Score: ${this.score}`, this.canvas.width / 2, 100);
   }
 }

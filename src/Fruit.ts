@@ -19,7 +19,6 @@ export default class Fruit {
 
     // Get random spider
     const random: number = Math.random() * 100;
-    console.log(random);
 
     if (random > 90) {
       this.image = CanvasRenderer.loadNewImage('./assets/fruit-cherries.png');
@@ -47,7 +46,7 @@ export default class Fruit {
    * update
    */
   public update(delta: number): void{
-    this.posX += delta * this.speed;
+    this.posY += delta * this.speed;
   }
   
   /**
@@ -87,5 +86,12 @@ export default class Fruit {
    */
   public getHeight(): number {
     return this.image.height;
+  }
+
+  /**
+   * getScore
+   */
+  public getScore() {
+    return this.score;
   }
 }
