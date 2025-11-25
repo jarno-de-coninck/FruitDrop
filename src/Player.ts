@@ -80,7 +80,7 @@ export default class Player {
   /**
    * IsCollidingSpider
    */
-  public IsCollidingSpider(spider : Spider) : boolean {
+  public isCollidingSpider(spider : Spider) : boolean {
     const playerLeftSide : number = this.posX;
     const playerRightSide : number = this.posX + this.getWidth();
     const playerTop : number = this.posY;

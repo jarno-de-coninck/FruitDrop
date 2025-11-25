@@ -97,7 +97,7 @@ export class FruitDrop extends Game {
         this.spiders.splice(i, 1);
       }
       
-      if (this.player.IsCollidingSpider(spider)) {
+      if (this.player.isCollidingSpider(spider)) {
         this.score += spider.getScore();
         this.spiders.splice(i, 1);
       }
@@ -131,7 +131,14 @@ export class FruitDrop extends Game {
       fruit.render(this.canvas);
     });
 
+   
     CanvasRenderer.writeText(this.canvas, `Time: ${(this.timeLeft / 1000).toFixed(2)}`, 10, 80, 'left', 'sans-serif', 35, 'white');
+
+    if (this.timeLeft <= 0) {
+      CanvasRenderer.clearCanvas(this.canvas);
+      CanvasRenderer.writeText(this.canvas, 'Game Over', this.canvas.width / 2, this.canvas.height / 2, 'center', 'sans-serif', 75, 'aqua');
+    }
+
     CanvasRenderer.writeText(this.canvas, `Score: ${this.score}`, 10, 40, 'left', 'sans-serif', 35, 'white');
   }
 }

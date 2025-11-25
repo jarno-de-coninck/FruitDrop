@@ -42,5 +42,6 @@ export default class Fruit extends ScoreItem {
    */
   public update(delta: number): void{
     this.posY += delta * this.speed;
+    this.speed *= 1.005;
   }
 }
